@@ -37,7 +37,9 @@ def main(path, start_index):
     '''
     files = os.listdir(path)
     files.sort()
+    or_len = len(files)
     index = start_index
+    deleted = 0
     files = files[index:]
     for file in files:
         full_path = os.path.join(path, file)
@@ -49,10 +51,12 @@ def main(path, start_index):
             exit(0)
         if key == DELETE:
             os.remove(full_path)
+            deleted += 1
         else:
             index += 1
-            print(f'Progress: {index}/{len(files)},\
-                  {(index / len(files)) * 100:.2f}%')
+
+        print(f'Progress: {index}/{or_len - deleted},\
+                {(index / (or_len - deleted)) * 100:.2f}%')
 
 
 if __name__ == '__main__':
